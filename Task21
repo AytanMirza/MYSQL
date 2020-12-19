@@ -1,0 +1,13 @@
+#Show the details of all past employees (that are no longer employed at the company), without using WITH clause.
+
+SELECT 
+    *
+FROM
+    employees
+WHERE
+    emp_no IN (SELECT 
+            emp_no
+        FROM
+            salaries
+        GROUP BY emp_no
+        HAVING MAX(to_date) < CURDATE());
