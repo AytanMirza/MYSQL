@@ -1,0 +1,9 @@
+#List all female employees who joined before 01/01/1990 or after 01/01/2000
+
+SELECT 
+    *
+FROM
+    employees
+WHERE
+    hire_date < '1990-01-01'
+        OR hire_date > '2000-01-01';
