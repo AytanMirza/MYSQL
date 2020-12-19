@@ -1,0 +1,11 @@
+#Show for each employee the z-score of their current salary relative to their department. ? (I am not sure it is right)
+
+with salary_stats as (
+select avg(salary) as avg_salary, stddev(salary) as salary_stddev
+from salaries
+where curdate() < to_date
+)
+select concat(first_name,' ',last_name) as Full_Name,  (salary-avg_salary)/salary_stddev as zskore
+from employees 
+join salaries on employees.emp_no = salaries.emp_no cross join salary_stats
+where curdate() < salaries.to_date;
