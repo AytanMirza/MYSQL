@@ -1,0 +1,15 @@
+#How how many salary cuts there were each year
+
+SELECT 
+    CONCAT(YEAR(s2.from_date),
+            ' compared to ',
+            YEAR(s1.from_date)) 'year',
+    COUNT(s2.salary - s1.salary) 'count of annual salary cuts'
+FROM
+    salaries s1
+        JOIN
+    salaries s2 ON s1.emp_no = s2.emp_no
+        AND s2.from_date = s1.to_date
+WHERE
+    SIGN(s2.salary - s1.salary) = - 1
+GROUP BY s2.from_date;
