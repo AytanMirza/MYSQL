@@ -1,0 +1,13 @@
+/* Show, for each employee, their total employment time at the company. 
+For current employees this is the time since they were hired until today; 
+for past employees, this is the time since they were hired until they quit / were let go*/
+
+SELECT 
+    salaries.emp_no,
+    ROUND(DATEDIFF(LEAST(MAX(to_date), CURDATE()),
+                    hire_date) / 365) AS years_employed
+FROM
+    salaries
+        JOIN
+    employees ON salaries.emp_no = employees.emp_no
+GROUP BY salaries.emp_no;
