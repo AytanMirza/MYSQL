@@ -1,0 +1,21 @@
+#Show, for each year, which percentage of salary changes were pay cuts.
+
+WITH 
+cuts AS (
+SELECT YEAR(prev_salaries.to_date) AS change_year, COUNT(*) AS no_cuts
+FROM salaries AS prev_salaries
+JOIN salaries AS new_salaries ON prev_salaries.emp_no = new_salaries.emp_no
+AND prev_salaries.to_date = new_salaries.from_date
+WHERE SIGN(prev_salaries.salary - new_salaries.salary) = 1
+GROUP BY change_year
+),
+raises AS (
+SELECT  YEAR(prev_salaries.to_date) AS change_year, COUNT(*) AS no_raises
+FROM salaries AS prev_salaries
+JOIN salaries AS new_salaries ON prev_salaries.emp_no = new_salaries.emp_no AND prev_salaries.to_date = new_salaries.from_date
+WHERE SIGN(prev_salaries.salary - new_salaries.salary) = -1
+GROUP BY change_year 
+)
+SELECT no_cuts, no_raises, cuts.change_year, CONCAT(ROUND(100 * no_cuts / (no_cuts + no_raises)), '%') AS pct_cuts
+FROM cuts 
+JOIN raises ON cuts.change_year = raises.change_year;
