@@ -1,0 +1,8 @@
+#Show the 20 most recent salary raises
+
+SELECT 
+    *
+FROM
+    salaries
+ORDER BY salary DESC
+LIMIT 20;
