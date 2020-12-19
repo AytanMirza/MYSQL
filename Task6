@@ -1,0 +1,9 @@
+/* Show how many employees currently hold each title, sorted in descending order by number of employees. */
+SELECT 
+    COUNT(emp_no), title
+FROM
+    titles
+WHERE
+    to_date = STR_TO_DATE('9999-01-01', '%Y-%m-%d')
+GROUP BY title
+ORDER BY 1 DESC;  
