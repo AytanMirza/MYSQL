@@ -1,0 +1,19 @@
+#Select the details and current title of the employee with the highest current salary
+
+SELECT 
+    first_name, last_name, salary, title
+FROM
+    employees
+        JOIN
+    salaries ON employees.emp_no = salaries.emp_no
+        JOIN
+    titles ON titles.emp_no = employees.emp_no
+WHERE
+    salary = (SELECT 
+            MAX(salary)
+        FROM
+            salaries
+        WHERE
+            to_date > CURDATE())
+        AND salaries.to_date > CURDATE()
+        AND titles.to_date > CURDATE();
