@@ -1,0 +1,6 @@
+#Show all unique full names
+
+SELECT DISTINCT
+    CONCAT(first_name, ' ', last_name) AS fullname
+FROM
+    employees;
