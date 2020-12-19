@@ -1,0 +1,9 @@
+/* Show all employees who were employed at more than one department. */ 
+SELECT 
+    d.dept_no, COUNT(d.dept_no)
+FROM
+    dept_emp d
+        JOIN
+    departmentS dp ON d.dept_no = dp.dept_no
+GROUP BY d.dept_no
+HAVING COUNT(*) > 1;
