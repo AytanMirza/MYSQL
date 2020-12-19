@@ -1,0 +1,10 @@
+#List all male employees who at some point earned less than 60000$ (but show each such employee only once)
+
+SELECT DISTINCT
+    first_name, last_name
+FROM
+    employees e
+        LEFT JOIN
+    salaries s ON s.emp_no = e.emp_no
+WHERE
+    gender = 'M' AND salary < 60000;
