@@ -1,0 +1,23 @@
+#Show all employees that currently earn more than their managers
+
+SELECT 
+    CONCAT(emps.first_name, ' ', emps.last_name) AS employee_name, dept_emp.dept_no, dept_manager.emp_no,
+    CONCAT(managers.first_name, ' ', managers.last_name) AS manager_name, emp_salaries.salary AS emp_salary, manager_salaries.salary AS manager_salary
+FROM
+    employees AS emps
+        JOIN
+    dept_emp ON emps.emp_no = dept_emp.emp_no
+		JOIN
+	dept_manager ON dept_emp.dept_no = dept_manager.dept_no
+		JOIN
+	employees AS managers ON managers.emp_no = dept_manager.emp_no
+		JOIN
+	salaries AS emp_salaries ON emps.emp_no = emp_salaries.emp_no
+		JOIN
+	salaries AS manager_salaries ON managers.emp_no = manager_salaries.emp_no
+WHERE
+    dept_emp.to_date > CURDATE() AND
+    dept_manager.to_date > CURDATE() AND
+    emp_salaries.to_date > CURDATE() AND
+    manager_salaries.to_date > CURDATE() AND
+    emp_salaries.salary > manager_salaries.salary;
