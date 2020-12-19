@@ -1,0 +1,9 @@
+/* Show the average salary and maximum salary in thousands of dollars for every year.*/
+SELECT 
+    emp_no,
+    AVG(Salary),
+    CONCAT(ROUND(MAX(salary) / 1000), ' ', 'K')
+FROM
+    salaries
+GROUP BY emp_no
+ORDER BY emp_no;
