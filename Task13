@@ -1,0 +1,12 @@
+#Show for each employee, their name and their department’s name
+
+SELECT 
+    e.emp_no,
+    CONCAT(first_name, ' ', last_name) AS Full_Name,
+    dept_name
+FROM
+    employees e
+        JOIN
+    dept_emp d ON e.emp_no = d.emp_no
+        JOIN
+    departments dp ON dp.dept_no = d.dept_no;
