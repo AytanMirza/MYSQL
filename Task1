@@ -1,0 +1,11 @@
+#1.List all employees who currently earn less than 40000$
+
+SELECT 
+    *
+FROM
+    employees e
+        LEFT JOIN
+    salaries s ON s.emp_no = e.emp_no
+WHERE
+    STR_TO_DATE(to_date, '%Y-%m-%d') = '9999-01-01'
+        AND salary < 40000;
