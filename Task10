@@ -1,0 +1,9 @@
+/* 5.Show how many employees were hired on weekends (Saturday + Sunday), split by gender.*/
+SELECT 
+    COUNT(*), gender
+FROM
+    employees
+WHERE
+    WEEKDAY(hire_date) = 5
+        OR DAYOFWEEK(hire_date) = 6
+GROUP BY gender;
