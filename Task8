@@ -1,0 +1,11 @@
+/* Show, for each employee, their name, current age, and how many years they are employed at the company */
+SELECT 
+    CONCAT(firSt_name, ' ', laSt_name) AS full_name,
+    ROUND(DATEDIFF(CURDATE(), birth_date) / 365) age,
+    ROUND(DATEDIFF(CURDATE(), to_date) / 365) hireyear
+FROM
+    employees e
+        INNER JOIN
+    dept_emp d ON e.emp_no = d.emp_no
+WHERE
+    CURDATE() > to_date;
