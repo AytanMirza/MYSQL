@@ -1,0 +1,19 @@
+#Count how many salary raises and cuts were
+
+WITH salary_data AS (
+SELECT 
+    SIGN(prev_salaries.salary - new_salaries.salary) AS change_sign, COUNT(*) AS amount
+FROM
+    salaries AS prev_salaries
+        JOIN
+    salaries AS new_salaries ON prev_salaries.emp_no = new_salaries.emp_no
+        AND prev_salaries.to_date = new_salaries.from_date
+GROUP BY change_sign
+)
+SELECT 
+CASE 
+	WHEN change_sign = -1 THEN 'raise'
+	WHEN change_sign = 1 THEN 'cut' 
+    ELSE 'no change' END 
+    AS change_description, amount
+FROM salary_data;
